@@ -73,6 +73,11 @@ fun EditProfileRoute(profileId: Long, onNavigateBack: () -> Unit, modifier: Modi
                         launchSingleTop = true
                     }
                 },
+                onNavigateToWangwangEditor = { profileName ->
+                    navController.navigate("edit_wangwang/$profileName") {
+                        launchSingleTop = true
+                    }
+                },
                 viewModel = sharedViewModel,
             )
         }
@@ -175,6 +180,51 @@ fun EditProfileRoute(profileId: Long, onNavigateBack: () -> Unit, modifier: Modi
                 },
                 profileName = profileName,
                 isReadOnly = isReadOnly,
+            )
+        }
+
+        composable(
+            route = "edit_wangwang/{profileName}",
+            arguments =
+            listOf(
+                navArgument("profileName") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                },
+            ),
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(300),
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(300),
+                )
+            },
+            popEnterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(300),
+                )
+            },
+            popExitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(300),
+                )
+            },
+        ) { backStackEntry ->
+            val profileName = backStackEntry.arguments?.getString("profileName") ?: ""
+
+            WangwangEditorScreen(
+                profileId = profileId,
+                profileName = profileName,
+                onNavigateBack = {
+                    navController.popBackStack("edit_profile", inclusive = false)
+                },
             )
         }
     }

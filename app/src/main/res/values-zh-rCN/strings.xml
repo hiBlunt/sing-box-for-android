@@ -160,6 +160,15 @@
     <string name="content">内容</string>
     <string name="json_viewer">JSON 查看器</string>
     <string name="json_editor">JSON 编辑器</string>
+    <string name="wangwang_editor">Wangwang 编辑器</string>
+    <string name="title_wangwang_editor">编辑 Wangwang</string>
+    <string name="server_address">服务器地址</string>
+    <string name="server_port">服务器端口</string>
+    <string name="password">密码</string>
+    <string name="wangwang_method">加密方法</string>
+    <string name="wangwang_editor_missing_outbound">当前配置中未找到 Wangwang 出站</string>
+    <string name="wangwang_editor_invalid_port">服务器端口必须在 1 到 65535 之间</string>
+    <string name="wangwang_editor_local_only">Wangwang 编辑器仅支持本地配置</string>
     <string name="view_configuration">查看配置</string>
     <string name="save_as_file">保存为文件</string>
     <string name="share_as_file">分享为文件</string>

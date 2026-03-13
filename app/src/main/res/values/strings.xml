@@ -160,6 +160,15 @@
     <string name="content">Content</string>
     <string name="json_viewer">JSON Viewer</string>
     <string name="json_editor">JSON Editor</string>
+    <string name="wangwang_editor">Wangwang Editor</string>
+    <string name="title_wangwang_editor">Edit Wangwang</string>
+    <string name="server_address">Server Address</string>
+    <string name="server_port">Server Port</string>
+    <string name="password">Password</string>
+    <string name="wangwang_method">Method</string>
+    <string name="wangwang_editor_missing_outbound">No Wangwang outbound found in this configuration</string>
+    <string name="wangwang_editor_invalid_port">Server port must be between 1 and 65535</string>
+    <string name="wangwang_editor_local_only">Wangwang editor is only available for local profiles</string>
     <string name="view_configuration">View Configuration</string>
     <string name="save_as_file">Save As File</string>
     <string name="share_as_file">Share As File</string>

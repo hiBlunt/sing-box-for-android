@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -50,6 +51,7 @@ data class EditProfileUiState(
     val errorMessage: String? = null,
     val autoUpdateIntervalError: String? = null,
     val showIconDialog: Boolean = false,
+    val hasWangwangEditor: Boolean = false,
 )
 
 class EditProfileViewModel(application: Application) : AndroidViewModel(application) {
@@ -90,6 +92,7 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                         autoUpdateInterval = typedProfile.autoUpdateInterval,
                         originalAutoUpdateInterval = typedProfile.autoUpdateInterval,
                         lastUpdated = typedProfile.lastUpdated,
+                        hasWangwangEditor = profile.canEditWangwang(),
                         isLoading = false,
                     )
                 }
@@ -366,6 +369,25 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                 pendingExportContent = null
                 pendingExportFileName = null
             }
+        }
+    }
+
+    private fun Profile.canEditWangwang(): Boolean {
+        if (typed.type != TypedProfile.Type.Local) {
+            return false
+        }
+        val configFile = File(typed.path)
+        if (!configFile.exists()) {
+            return false
+        }
+        return try {
+            val root = JSONObject(configFile.readText())
+            val outbounds = root.optJSONArray("outbounds") ?: return false
+            (0 until outbounds.length()).any { index ->
+                outbounds.optJSONObject(index)?.optString("type") == "wangwang"
+            }
+        } catch (_: Exception) {
+            false
         }
     }
 }
